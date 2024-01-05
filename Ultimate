@@ -1,0 +1,437 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("Ultimate Football | Legend HandlesYT", "GrapeTheme")
+
+local Tab = Window:NewTab("Main-Features")
+
+
+local Tab4 = Window:NewTab("Misc-Features")
+
+
+local Tab1 = Window:NewTab("Settings")
+
+local Section = Tab:NewSection("Main-Features")
+
+local Section1 = Tab4:NewSection("Misc-Features")
+
+
+local CredSection = Tab1:NewSection("Credits")
+
+
+
+
+Section:NewToggle("Auto Catch", "Auto Catch", function(Value)
+   a = Value
+        while a do task.wait(.2)
+        pcall(function()
+local vim = game:GetService("VirtualInputManager")
+local player = game.Players.LocalPlayer
+local starterGui = player:WaitForChild("PlayerGui")
+
+-- Function to find a GUI element by type (you might need to customize this based on your needs)
+local function findGuiElement(parent, targetType)
+    for _, descendant in pairs(parent:GetDescendants()) do
+        if descendant:IsA(targetType) then
+            return descendant
+        end
+    end
+    return nil
+end
+
+-- Find the GUI element
+local x = findGuiElement(starterGui, "GuiObject") -- Replace "GuiObject" with the type of GUI element you're looking for
+
+if x then
+    local clickX = x.AbsolutePosition.X + x.AbsoluteSize.X / 2 - 205 -- Adjust the value (e.g., subtract 10 for a more left position)
+    local clickY = x.AbsolutePosition.Y + x.AbsoluteSize.Y / 2 + 60 -- Adjust the value (e.g., add 10 for a lower position)
+
+    vim:SendMouseButtonEvent(clickX, clickY, 0, true, x, 1)
+    vim:SendMouseButtonEvent(clickX, clickY, 0, false, x, 1)
+else
+    warn("No suitable GUI element found")
+end
+
+  end)
+        end
+end)
+    
+    
+Section:NewButton("No Jump Cooldown", "No Jump Cooldown", function()
+
+local Cooldown; Cooldown = hookfunction(wait, function(v)
+    v = 0;
+    return Cooldown(v);
+end);
+end)
+
+Section:NewToggle("Football Size", "Pick Up Football From Far", function(Value)
+   a = Value
+        while a do task.wait(.1)
+        pcall(function()
+ for i,v in pairs(game.Workspace:GetDescendants()) do
+     if v.Name == "Cylinder" then
+  v.Size = Vector3.new(20,20,20)
+     end
+     end
+    end)
+        end
+end)
+
+    
+Section:NewKeybind("Speed Boost", "Speed Boost", Enum.KeyCode.X, function()
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(game.Players.LocalPlayer.Character:GetPrimaryPartCFrame()*CFrame.new(0, 0, -2))
+
+end)
+
+
+   Section:NewKeybind("Jump Boost", "Jump Boost", Enum.KeyCode.G, function()
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(game.Players.LocalPlayer.Character:GetPrimaryPartCFrame()*CFrame.new(0, 15, 0))
+
+end)
+ 
+Section:NewButton("Walkspeed (Press R, On/Off)", "Walkspeed (Press R, On/Off)", function()
+  down = false
+velocity = Instance.new("BodyVelocity")
+velocity.maxForce = Vector3.new(100000, 0, 100000)
+---vv Use that to change the speed v
+local speed = 35
+gyro = Instance.new("BodyGyro")
+gyro.maxTorque = Vector3.new(100000, 0, 100000)
+
+local hum = game.Players.LocalPlayer.Character.Humanoid
+
+function onButton1Down(mouse)
+down = true
+velocity.Parent = game.Players.LocalPlayer.Character.UpperTorso
+velocity.velocity = (hum.MoveDirection) * speed
+gyro.Parent = game.Players.LocalPlayer.Character.UpperTorso
+while down do
+if not down then break end
+velocity.velocity = (hum.MoveDirection) * speed
+local refpos = gyro.Parent.Position + (gyro.Parent.Position - workspace.CurrentCamera.CoordinateFrame.p).unit * 5
+gyro.cframe = CFrame.new(gyro.Parent.Position, Vector3.new(refpos.x, gyro.Parent.Position.y, refpos.z))
+wait(0.1)
+end
+end
+
+function onButton1Up(mouse)
+velocity.Parent = nil
+gyro.Parent = nil
+down = false
+end
+--To Change the key in those 2 lines, replace the "q" with your desired key
+function onSelected(mouse)
+mouse.KeyDown:connect(function(k) if k:lower()=="r"then onButton1Down(mouse)end end)
+mouse.KeyUp:connect(function(k) if k:lower()=="r"then onButton1Up(mouse)end end)
+end
+
+onSelected(game.Players.LocalPlayer:GetMouse())
+end)
+
+Section:NewLabel("Free Dances")
+  
+    
+Section:NewToggle("Griddy", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "8028694339" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1.2) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+
+    
+Section:NewToggle("Take The L", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "2293391158" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+    
+Section:NewToggle("Twist", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "3471309781" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1.2) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+
+    
+Section:NewToggle("Throw Head", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "5704065738" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1.2) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+
+Section:NewToggle("Plug Walk", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "3471340135" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1.2) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+
+Section:NewToggle("Floss", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "2293381631" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+
+Section:NewToggle("KneelingDab", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "8028703676" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+
+Section:NewToggle("SitUps", "Dance", function(state)
+if state then
+   Player = "LocalPlayer" --- you can still put any player name here
+
+
+AnimationId = "8028726298" --- add ID's from the bottom[/size]
+local Anim = Instance.new("Animation") --- Creates animation[/size]
+Anim.AnimationId = "rbxassetid://"..AnimationId ---- inserts the ID[/size]
+local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim) --- makes the animation a function[/size]
+k:Play() --Play the animation ----- Runs the animation.[/size]
+k:AdjustSpeed(1) 
+else
+
+h = game.Players.LocalPlayer.Character.Humanoid
+tracks = h:GetPlayingAnimationTracks()
+for _,x in pairs(tracks)
+do x:Stop()
+end
+end
+end)
+
+Section1:NewToggle("Noclip (OP, Can Go OffSides)", "CAN GO OFFSIDES", function(state) -- 500 (MaxValue) | 0 (MinValue)
+local Noclip = nil
+local Clip = nil
+
+function noclip()
+	Clip = false
+	local function Nocl()
+		if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+			for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
+					v.CanCollide = false
+				end
+			end
+		end
+		wait(0.21) -- basic optimization
+	end
+	Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
+end
+
+function clip()
+	if Noclip then Noclip:Disconnect() end
+	Clip = true
+end
+
+noclip() -- to toggle noclip() and clip()
+end)
+Section1:NewToggle("Free Camera", "Zoom Out", function(state) -- 500 (MaxValue) | 0 (MinValue)
+  local LocalPlayer = game:GetService("Players").LocalPlayer
+		LocalPlayer.CameraMaxZoomDistance = 9e9
+		LocalPlayer.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Invisicam
+end)
+
+Section1:NewSlider("FOV", "Field Of Views", 120, 70, function(s) -- 500 (MaxValue) | 0 (MinValue)
+game:GetService'Workspace'.Camera.FieldOfView = (s)
+end)
+
+Section1:NewToggle("(M) Lag Server", "M Off/On", function(state) -- 500 (MaxValue) | 0 (MinValue)
+ getgenv().Toggled=false
+getgenv().KeyBind="M"
+getgenv().Delay=0.7
+local UIS=game:GetService'UserInputService'
+
+--//main
+
+local function Source()
+game:GetService("NetworkClient"):SetOutgoingKBPSLimit(math.huge)
+local function getmaxvalue(val) 
+   local mainvalueifonetable = 49999
+   if type(val) ~= "number" then
+       return nil 
+   end
+   local calculateperfectval = (mainvalueifonetable/(val+2))
+   return calculateperfectval 
+end
+
+local function bomb(tableincrease, tries) 
+ local maintable = {}
+ local spammedtable = {}
+ 
+ table.insert(spammedtable, {})
+ z = spammedtable[1]
+ 
+ for i = 1, tableincrease do
+    local tableins = {}
+    table.insert(z, tableins)
+    z = tableins
+ end 
+ 
+ local calculatemax = getmaxvalue(tableincrease) 
+ local maximum 
+ 
+ if calculatemax then
+     maximum = calculatemax
+     else
+     maximum = 10000
+ end
+ 
+ for i = 1, maximum do
+     table.insert(maintable, spammedtable)
+ end 
+ 
+  if calculatemax then
+     maximum = calculatemax
+     else
+     maximum = 10000
+ end
+ 
+ for i = 1, maximum do
+     table.insert(maintable, spammedtable)
+ end 
+
+ for i = 1, tries do
+    game.RobloxReplicatedStorage.UpdatePlayerBlockList:FireServer(maintable)
+ end
+end
+
+
+bomb(250, 5) --// change values if client crashes
+end
+UIS.InputBegan:Connect(function(Key)
+    if Key.KeyCode==Enum.KeyCode[getgenv().KeyBind:upper()] and not UIS:GetFocusedTextBox() then
+        if getgenv().Toggled then
+            getgenv().Toggled=false
+            warn'Disabled!'
+        elseif not getgenv().Toggled then
+            getgenv().Toggled=true
+            warn'Enabled!'
+            while getgenv().Toggled do
+                Source()
+                wait(getgenv().Delay)
+            end
+        end
+    end
+end)
+end)
+
+
+CredSection:NewLabel("Made By Legend HandlesYT")
+
+
+CredSection:NewKeybind("Toggle UI", "Toggle The UI", Enum.KeyCode.L, function()
+	Library:ToggleUI()
+end)
+
+CredSection:NewButton("Mobile Keyboard", "Mobile Players", function(state)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+end)

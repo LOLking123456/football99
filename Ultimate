@@ -44,7 +44,7 @@ game.Players.LocalPlayer.Character.LeftHand.Transparency = 0
 end
 end)
 
-Section:NewSlider("FOV", "Field Of Views", 17, 1, function(s) -- 500 (MaxValue) | 0 (MinValue)
+Section:NewSlider("Magnet Range", "Magnet Range", 17, 1, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.RightHand.Size = Vector3.new((s),(s),(s))
 
 game.Players.LocalPlayer.Character.LeftHand.Size = Vector3.new((s),(s),(s))
@@ -58,7 +58,7 @@ end)
 local Players = game:GetService("Players")
 
 
-local textBox = Section:NewTextBox("QB Aimbot", "Locks on player for 15 seconds and in their direction", function(playerName)
+local textBox = Section:NewTextBox("QB Aimbot", "Locks on player for 25 seconds and in their direction", function(playerName)
 
     local isAimlockEnabled = true -- Set to true initially
     local targetPlayer
@@ -105,7 +105,7 @@ local textBox = Section:NewTextBox("QB Aimbot", "Locks on player for 15 seconds 
     repeat
         wait(0.1)  -- Adjust the wait time as needed
         aimLockToPlayer()
-    until not isAimlockEnabled or tick() - startTime >= 15
+    until not isAimlockEnabled or tick() - startTime >= 25
 end)
 
 

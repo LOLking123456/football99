@@ -20,7 +20,7 @@ local CredSection = Tab1:NewSection("Credits")
 local Players = game:GetService("Players")
 
 -- Create a TextBox for inputting the player's name
-local textBox = Section:NewTextBox("Qb Aimbot", QB Aimbot", function(playerName)
+local textBox = Section:NewTextBox("Qb Aimbot", "QB Aimbot", function(playerName)
     -- Set the initial state of aimlock
     local isAimlockEnabled = true -- Set to true initially
 

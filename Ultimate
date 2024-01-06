@@ -18,9 +18,10 @@ local Section1 = Tab4:NewSection("Misc-Features")
 local CredSection = Tab1:NewSection("Credits")
 
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
 -- Create a TextBox for inputting the player's name
-local textBox = Section:NewTextBox("Qb Aimbot", "QB Aimbot", function(playerName)
+local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(playerName)
     -- Set the initial state of aimlock
     local isAimlockEnabled = true -- Set to true initially
 
@@ -62,6 +63,16 @@ local textBox = Section:NewTextBox("Qb Aimbot", "QB Aimbot", function(playerName
 
     -- Disable aimlock after the timer
     isAimlockEnabled = false
+end)
+
+-- Connect to Heartbeat for continuous updates
+local heartbeatConnection
+heartbeatConnection = RunService.Heartbeat:Connect(function()
+    if isAimlockEnabled and textBox:GetText() ~= "" then
+        aimLockToPlayer(textBox:GetText())
+    else
+        heartbeatConnection:Disconnect() -- Disconnect the connection when aimlock is disabled or playerName is empty
+    end
 end)
 
 

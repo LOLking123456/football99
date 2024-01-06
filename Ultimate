@@ -19,7 +19,6 @@ local CredSection = Tab1:NewSection("Credits")
 
 local Players = game:GetService("Players")
 
-local Players = game:GetService("Players")
 
 -- Create ez a TextBox for inputting the player's name
 local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(playerName)

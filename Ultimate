@@ -17,6 +17,63 @@ local Section1 = Tab4:NewSection("Misc-Features")
 
 local CredSection = Tab1:NewSection("Credits")
 
+local Players = game:GetService("Players")
+
+-- Set the initial state of aimlock
+local isAimlockEnabled = false
+
+local function findPlayerByPartialName(partialName)
+    partialName = partialName:lower()
+    for _, player in pairs(Players:GetPlayers()) do
+        local lowerPlayerName = player.Name:lower()
+        if lowerPlayerName:find(partialName, 1, true) then
+            return player
+        end
+    end
+    return nil
+end
+
+local function aimLockToPlayer(partialName)
+    local targetPlayer = findPlayerByPartialName(partialName)
+
+    if targetPlayer then
+        local camera = game.Workspace.CurrentCamera
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+
+        if character and character:FindFirstChild("HumanoidRootPart") and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local targetPosition = targetPlayer.Character.HumanoidRootPart.Position
+            local currentPos = character.HumanoidRootPart.Position
+
+            local lookVector = (targetPosition - currentPos).unit
+            local newLookCFrame = CFrame.new(currentPos, currentPos + lookVector)
+
+            camera.CFrame = newLookCFrame
+        end
+    else
+        warn("Player not found:", partialName)
+    end
+end
+
+-- Function to toggle the aimlock state
+local function toggleAimlock()
+    isAimlockEnabled = not isAimlockEnabled
+end
+
+-- Connect the function to a button or any UI element to toggle aimlock
+Section:NewButton("Toggle Aimlock", "Toggle Aimlock", function()
+    toggleAimlock()
+end)
+
+-- Continuously aimlock onto the player specified in partialName
+while true do
+    wait(0.1)  -- Adjust the wait time as needed
+
+    -- Check if aimlock is enabled before calling aimLockToPlayer
+    if isAimlockEnabled then
+        aimLockToPlayer(partialName)
+    end
+end
 
 
 

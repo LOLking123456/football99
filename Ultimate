@@ -44,6 +44,17 @@ game.Players.LocalPlayer.Character.LeftHand.Transparency = 0
 end
 end)
 
+Section:NewSlider("FOV", "Field Of Views", 17, 1, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.RightHand.Size = Vector3.new((s),(s),(s))
+
+game.Players.LocalPlayer.Character.LeftHand.Size = Vector3.new((s),(s),(s))
+
+game.Players.LocalPlayer.Character.RightHand.Transparency = 0.8
+
+game.Players.LocalPlayer.Character.LeftHand.Transparency = 0.8
+end)
+
+
 local Players = game:GetService("Players")
 
 

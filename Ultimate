@@ -22,7 +22,7 @@ local CredSection = Tab1:NewSection("Credits")
 
 Section:NewToggle("Auto Catch", "Auto Catch", function(Value)
    a = Value
-        while a do task.wait(.2)
+        while a do task.wait()
         pcall(function()
 local vim = game:GetService("VirtualInputManager")
 local player = game.Players.LocalPlayer
@@ -54,8 +54,30 @@ end
   end)
         end
 end)
-    
-    
+
+Section:NewButton("ShiftLock (P)", "ShiftLock", function()
+
+    -- Get the player
+local player = game.Players.LocalPlayer
+
+-- Function to toggle Shift Lock
+local function toggleShiftLock()
+    if player and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
+        local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+        humanoid.AutoRotate = not humanoid.AutoRotate
+    end
+end
+
+-- Connect the function to a key press event (e.g., pressing the "P" key)
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessedEvent)
+    if not gameProcessedEvent then
+        if input.KeyCode == Enum.KeyCode.P then
+            toggleShiftLock()
+        end
+    end
+end)
+end)
+
 Section:NewButton("No Jump Cooldown", "No Jump Cooldown", function()
 
 local Cooldown; Cooldown = hookfunction(wait, function(v)

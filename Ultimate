@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
-local Window = Library.CreateLib("Ultimate Football | Legend HandlesYT", "GrapeTheme")
+local Window = Library.CreateLib("Ultimate Football Private Buyers", "BloodTheme")
 
 local Tab = Window:NewTab("Main-Features")
 
@@ -132,6 +132,64 @@ end
 
   end)
         end
+end)
+
+
+Section:NewButton("Auto Guard (Z)", "Auto Guard (Z)", function()
+local tr = false
+local Mouse = game.Players.LocalPlayer:GetMouse()
+
+game:GetService("UserInputService").InputBegan:Connect(function(key, gpe)
+   if key.KeyCode == Enum.KeyCode.Z and not gpe and tr == false then
+           tr = true
+           for i, v in pairs(game.Players:GetPlayers()) do
+               local char = game.Players.LocalPlayer.Character
+               if v.Name ~= char.Name and (v.Character.UpperTorso.CFrame.p - char.UpperTorso.CFrame.p).Magnitude < 35 then
+                   while tr == true do
+                       if v.Character.UpperTorso.Velocity.magnitude > 0.5 and v.Character:FindFirstChild("UpperTorso") then
+                           char.Humanoid:MoveTo(v.Character.UpperTorso.CFrame.p + v.Character.UpperTorso.Velocity.unit * 7)
+                       elseif v.Character.UpperTorso.Velocity.magnitude < 0.5 and v.Character:FindFirstChild("UpperTorso") then
+                           char.Humanoid:MoveTo(v.Character.UpperTorso.CFrame.p)
+                       elseif not v.Character:FindFirstChild("UpperTorso") then
+                           tr = false
+                       end
+                        task.wait()
+                   end
+               end
+           end
+       elseif key.KeyCode == Enum.KeyCode.Z and not gpe and tr == true then
+           tr = false
+       end
+   end
+)
+end)
+
+
+Section:NewToggle("Noclip (OP, Can Go OffSides and Tackle)", "CAN GO OFFSIDES", function(state) -- 500 (MaxValue) | 0 (MinValue)
+local Noclip = nil
+local Clip = nil
+
+function noclip()
+	Clip = false
+	local function Nocl()
+		if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+			for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
+					v.CanCollide = false
+				end
+			end
+		end
+		wait(0.21) -- basic optimization
+	end
+	Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
+end
+
+function clip()
+	if Noclip then Noclip:Disconnect() end
+	Clip = true
+end
+
+noclip() -- to toggle noclip() and clip()
 end)
 
 Section:NewButton("ShiftLock (P)", "ShiftLock", function()
@@ -409,32 +467,6 @@ end
 end
 end)
 
-Section1:NewToggle("Noclip (OP, Can Go OffSides)", "CAN GO OFFSIDES", function(state) -- 500 (MaxValue) | 0 (MinValue)
-local Noclip = nil
-local Clip = nil
-
-function noclip()
-	Clip = false
-	local function Nocl()
-		if Clip == false and game.Players.LocalPlayer.Character ~= nil then
-			for _,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-				if v:IsA('BasePart') and v.CanCollide and v.Name ~= floatName then
-					v.CanCollide = false
-				end
-			end
-		end
-		wait(0.21) -- basic optimization
-	end
-	Noclip = game:GetService('RunService').Stepped:Connect(Nocl)
-end
-
-function clip()
-	if Noclip then Noclip:Disconnect() end
-	Clip = true
-end
-
-noclip() -- to toggle noclip() and clip()
-end)
 Section1:NewToggle("Free Camera", "Zoom Out", function(state) -- 500 (MaxValue) | 0 (MinValue)
   local LocalPlayer = game:GetService("Players").LocalPlayer
 		LocalPlayer.CameraMaxZoomDistance = 9e9

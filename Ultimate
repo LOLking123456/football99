@@ -21,9 +21,8 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 -- Create a TextBox for inputting the player's name
-local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(playerName)
-    -- Set the initial state of aimlock
-    local isAimlockEnabled = true -- Set to true initially
+local textBox = Section:NewTextBox("duma hs", "Enter Player Name", function(playerName)
+    local targetPlayer
 
     local function findPlayerByPartialName(partialName)
         partialName = partialName:lower()
@@ -36,9 +35,7 @@ local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(p
         return nil
     end
 
-    local function aimLockToPlayer(playerName)
-        local targetPlayer = findPlayerByPartialName(playerName)
-
+    local function aimLockToPlayer()
         if targetPlayer then
             local camera = game.Workspace.CurrentCamera
             local localPlayer = game.Players.LocalPlayer
@@ -53,8 +50,6 @@ local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(p
 
                 camera.CFrame = newLookCFrame
             end
-        else
-            warn("Player not found:", playerName)
         end
     end
 
@@ -62,16 +57,18 @@ local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(p
     wait(10)
 
     -- Disable aimlock after the timer
-    isAimlockEnabled = false
+    targetPlayer = nil
 end)
 
 -- Connect to Heartbeat for continuous updates
 local heartbeatConnection
 heartbeatConnection = RunService.Heartbeat:Connect(function()
-    if isAimlockEnabled and textBox:GetText() ~= "" then
-        aimLockToPlayer(textBox:GetText())
+    local playerName = textBox:GetText()
+    if playerName ~= "" then
+        targetPlayer = findPlayerByPartialName(playerName)
+        aimLockToPlayer()
     else
-        heartbeatConnection:Disconnect() -- Disconnect the connection when aimlock is disabled or playerName is empty
+        heartbeatConnection:Disconnect() -- Disconnect the connection when playerName is empty
     end
 end)
 

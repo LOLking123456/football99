@@ -22,7 +22,7 @@ local CredSection = Tab1:NewSection("Credits")
 
 Section:NewToggle("Auto Catch", "Auto Catch", function(Value)
    a = Value
-        while a do task.wait()
+        while a do task.wait(0.2)
         pcall(function()
 local vim = game:GetService("VirtualInputManager")
 local player = game.Players.LocalPlayer

@@ -19,8 +19,8 @@ local CredSection = Tab1:NewSection("Credits")
 
 local Players = game:GetService("Players")
 
--- Create a TextBox for inputting the player's name
-local textBox = Section:NewTextBox("eabest", "Enter Player Name", function(playerName)
+
+local textBox = Section:NewTextBox("QB Aimbot (25 Arch)", "(Use With Shift Lock) Locks onto player and does it for 15 seconds then stops", function(playerName)
     local isAimlockEnabled = true -- Set to true initially
     local targetPlayer
 
@@ -48,6 +48,9 @@ local textBox = Section:NewTextBox("eabest", "Enter Player Name", function(playe
                 local lookVector = (targetPosition - currentPos).unit
                 local newLookCFrame = CFrame.new(currentPos, currentPos + lookVector)
 
+                -- Adjust the camera height (you can modify the Y value as needed)
+                newLookCFrame = newLookCFrame * CFrame.new(0, 25, 0)
+
                 camera.CFrame = newLookCFrame
             end
         else
@@ -62,7 +65,106 @@ local textBox = Section:NewTextBox("eabest", "Enter Player Name", function(playe
     repeat
         wait(0.1)  -- Adjust the wait time as needed
         aimLockToPlayer()
-    until not isAimlockEnabled or tick() - startTime >= 10
+    until not isAimlockEnabled or tick() - startTime >= 15
+end)
+
+
+local textBox = Section:NewTextBox("QB Aimbot (40 Arch)", "(Use With Shift Lock) Locks onto player and does it for 15 seconds then stops", function(playerName)
+    local isAimlockEnabled = true -- Set to true initially
+    local targetPlayer
+
+    local function findPlayerByPartialName(partialName)
+        partialName = partialName:lower()
+        for _, player in pairs(Players:GetPlayers()) do
+            local lowerPlayerName = player.Name:lower()
+            if lowerPlayerName:find(partialName, 1, true) then
+                return player
+            end
+        end
+        return nil
+    end
+
+    local function aimLockToPlayer()
+        if targetPlayer then
+            local camera = game.Workspace.CurrentCamera
+            local localPlayer = game.Players.LocalPlayer
+            local character = localPlayer.Character
+
+            if character and character:FindFirstChild("HumanoidRootPart") and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local targetPosition = targetPlayer.Character.HumanoidRootPart.Position
+                local currentPos = character.HumanoidRootPart.Position
+
+                local lookVector = (targetPosition - currentPos).unit
+                local newLookCFrame = CFrame.new(currentPos, currentPos + lookVector)
+
+                -- Adjust the camera height (you can modify the Y value as needed)
+                newLookCFrame = newLookCFrame * CFrame.new(0, 40, 0)
+
+                camera.CFrame = newLookCFrame
+            end
+        else
+            warn("Player not found:", playerName)
+        end
+    end
+
+    targetPlayer = findPlayerByPartialName(playerName)
+
+    -- Set a 10-second timer
+    local startTime = tick()
+    repeat
+        wait(0.1)  -- Adjust the wait time as needed
+        aimLockToPlayer()
+    until not isAimlockEnabled or tick() - startTime >= 15
+end)
+
+
+
+local textBox = Section:NewTextBox("QB Aimbot (55 Arch)", "(Use With Shift Lock) Locks onto player and does it for 15 seconds then stops", function(playerName)
+    local isAimlockEnabled = true -- Set to true initially
+    local targetPlayer
+
+    local function findPlayerByPartialName(partialName)
+        partialName = partialName:lower()
+        for _, player in pairs(Players:GetPlayers()) do
+            local lowerPlayerName = player.Name:lower()
+            if lowerPlayerName:find(partialName, 1, true) then
+                return player
+            end
+        end
+        return nil
+    end
+
+    local function aimLockToPlayer()
+        if targetPlayer then
+            local camera = game.Workspace.CurrentCamera
+            local localPlayer = game.Players.LocalPlayer
+            local character = localPlayer.Character
+
+            if character and character:FindFirstChild("HumanoidRootPart") and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local targetPosition = targetPlayer.Character.HumanoidRootPart.Position
+                local currentPos = character.HumanoidRootPart.Position
+
+                local lookVector = (targetPosition - currentPos).unit
+                local newLookCFrame = CFrame.new(currentPos, currentPos + lookVector)
+
+                -- Adjust the camera height (you can modify the Y value as needed)
+                newLookCFrame = newLookCFrame * CFrame.new(0, 55, 0)
+
+                camera.CFrame = newLookCFrame
+            end
+        else
+            warn("Player not found:", playerName)
+        end
+    end
+
+    targetPlayer = findPlayerByPartialName(playerName)
+
+    -- Set a 10-second timer
+    local startTime = tick()
+    repeat
+        wait(0.1)  -- Adjust the wait time as needed
+        aimLockToPlayer()
+    until not isAimlockEnabled or tick() - startTime >= 15
 end)
 
 

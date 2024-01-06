@@ -17,6 +17,33 @@ local Section1 = Tab4:NewSection("Misc-Features")
 
 local CredSection = Tab1:NewSection("Credits")
 
+
+
+
+
+
+Section:NewToggle("Enable Magnet", "Magnet", function(state)
+if state then
+    game.Players.LocalPlayer.Character.RightHand.Size = Vector3.new(17,17,17)
+
+game.Players.LocalPlayer.Character.LeftHand.Size = Vector3.new(17,17,17)
+
+game.Players.LocalPlayer.Character.RightHand.Transparency = 0.7
+
+game.Players.LocalPlayer.Character.LeftHand.Transparency = 0.7
+
+else
+game.Players.LocalPlayer.Character.RightHand.Size = Vector3.new(0.8, 0.3001, 0.8)
+
+game.Players.LocalPlayer.Character.LeftHand.Size = Vector3.new(0.8, 0.3001, 0.8)
+
+game.Players.LocalPlayer.Character.RightHand.Transparency = 0
+
+game.Players.LocalPlayer.Character.LeftHand.Transparency = 0
+
+end
+end)
+
 local Players = game:GetService("Players")
 --- ez
 

@@ -18,10 +18,10 @@ local Section1 = Tab4:NewSection("Misc-Features")
 local CredSection = Tab1:NewSection("Credits")
 
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
 -- Create a TextBox for inputting the player's name
-local textBox = Section:NewTextBox("duma hs", "Enter Player Name", function(playerName)
+local textBox = Section:NewTextBox("eabest", "Enter Player Name", function(playerName)
+    local isAimlockEnabled = true -- Set to true initially
     local targetPlayer
 
     local function findPlayerByPartialName(partialName)
@@ -50,26 +50,19 @@ local textBox = Section:NewTextBox("duma hs", "Enter Player Name", function(play
 
                 camera.CFrame = newLookCFrame
             end
+        else
+            warn("Player not found:", playerName)
         end
     end
 
+    targetPlayer = findPlayerByPartialName(playerName)
+
     -- Set a 10-second timer
-    wait(10)
-
-    -- Disable aimlock after the timer
-    targetPlayer = nil
-end)
-
--- Connect to Heartbeat for continuous updates
-local heartbeatConnection
-heartbeatConnection = RunService.Heartbeat:Connect(function()
-    local playerName = textBox:GetText()
-    if playerName ~= "" then
-        targetPlayer = findPlayerByPartialName(playerName)
+    local startTime = tick()
+    repeat
+        wait(0.1)  -- Adjust the wait time as needed
         aimLockToPlayer()
-    else
-        heartbeatConnection:Disconnect() -- Disconnect the connection when playerName is empty
-    end
+    until not isAimlockEnabled or tick() - startTime >= 10
 end)
 
 

@@ -28,9 +28,9 @@ if state then
 
 game.Players.LocalPlayer.Character.LeftHand.Size = Vector3.new(17,17,17)
 
-game.Players.LocalPlayer.Character.RightHand.Transparency = 0.7
+game.Players.LocalPlayer.Character.RightHand.Transparency = 0.8
 
-game.Players.LocalPlayer.Character.LeftHand.Transparency = 0.7
+game.Players.LocalPlayer.Character.LeftHand.Transparency = 0.8
 
 else
 game.Players.LocalPlayer.Character.RightHand.Size = Vector3.new(0.8, 0.3001, 0.8)
@@ -45,9 +45,9 @@ end
 end)
 
 local Players = game:GetService("Players")
---- ez
 
-local textBox = Section:NewTextBox("QB Aimbot (25 Arch)", "(Use With Shift Lock) Locks onto player for 15 seconds", function(playerName)
+
+local textBox = Section:NewTextBox("QB Aimbot", "Locks on player for 15 seconds and in their direction", function(playerName)
 
     local isAimlockEnabled = true -- Set to true initially
     local targetPlayer

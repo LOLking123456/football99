@@ -19,7 +19,9 @@ local CredSection = Tab1:NewSection("Credits")
 
 local Players = game:GetService("Players")
 
--- Create a TextBox for inputting the player's name
+local Players = game:GetService("Players")
+
+-- Create ez a TextBox for inputting the player's name
 local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(playerName)
     -- Set the initial state of aimlock
     local isAimlockEnabled = true -- Set to true initially
@@ -58,11 +60,12 @@ local textBox = Section:NewTextBox("PlayerName", "Enter Player Name", function(p
     end
 
     -- Continuously aimlock onto the player specified in the TextBox
-    while isAimlockEnabled do
+    while isAimlockEnabled and playerName ~= "" do
         wait(0.1) -- Adjust the wait time as needed
         aimLockToPlayer(playerName)
     end
 end)
+
 
 
 Section:NewToggle("Auto Catch", "Auto Catch", function(Value)
